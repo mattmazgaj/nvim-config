@@ -18,4 +18,3 @@ vim.g.mapleader = " "
 
 require("lazy").setup("matt.plugin")
 
-vim.cmd.colorscheme "catppuccin"
