@@ -17,4 +17,4 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 
 require("lazy").setup("matt.plugin")
-
+vim.wo.number = true
