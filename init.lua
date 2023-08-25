@@ -18,3 +18,5 @@ vim.g.mapleader = " "
 
 require("lazy").setup("matt.plugin")
 vim.wo.number = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
