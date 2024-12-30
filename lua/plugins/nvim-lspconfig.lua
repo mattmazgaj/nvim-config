@@ -1,19 +1,17 @@
 return {
 	"neovim/nvim-lspconfig"
 	, name = "nvim-lspconfig"
-	, dependencies = { "mason-lspconfig", "cmp-nvim-lsp" }
+	, dependencies = { "mason-lspconfig", "saghen/blink.cmp" }
 	, opts = {
 		autoformat = true
 	}
 	, config = function()
 		local lspconfig = require('lspconfig')
-		local capabilities = require('cmp_nvim_lsp').default_capabilities()
-		
+		local capabilities = require('blink.cmp').get_lsp_capabilities()
+
 		lspconfig.lua_ls.setup{
 			capabilities = capabilities
 		}
-
-		
 
 		lspconfig.clangd.setup{
 			cmd = {
@@ -24,8 +22,8 @@ return {
 				, "--completion-style=detailed"
 				, "--function-arg-placeholders"
 				, "--fallback-style=llvm"
-			},
-			capabilities = capabilities
+			}
+			, capabilities = capabilities
 			, on_attach = require('lsp-format').on_attach
 		}
 end
