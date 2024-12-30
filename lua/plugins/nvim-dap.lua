@@ -30,7 +30,36 @@ return
 					type = "cppdbg",
 					request = "launch",
 					program = function()
+						local hasDebug = 0
+						local cwd = vim.fn.getcwd()
+						local pfile = io.popen('ls -a "'..cwd..'"')
+						for filename in pfile:lines() do
+							local f = string.match(filename, "debug$")
+							if f ~= nil then
+								hasDebug = 1
+							break
+							end
+						end
+						pfile:close()
+
+						if hasDebug == 0 then
 						return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+						end
+
+						pfile = io.popen('ls -a "'.. cwd ..'"/debug/*.exe')
+						local exe = nil
+						for filename in pfile:lines() do
+							if string.find(filename,'.exe$') then
+							exe = filename
+							break
+							end
+						end
+
+						if exe ~= nil then
+						return vim.fn.input('Path to executable: ', exe, 'file')
+						end
+
+						return vim.fn.input('Path to executable: ', cwd .. '/debug/', 'file')
 					end,
 					cwd = '${workspaceFolder}',
 					stopAtEntry = true,
